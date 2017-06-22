@@ -1,5 +1,6 @@
 #include "TwoDeckShip.h"
 
-void TwoDeckShip::initializeShip()
+int TwoDeckShip::getSumShipDecks() const
 {
+	return sumShipDecks;
 }

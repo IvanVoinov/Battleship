@@ -4,7 +4,7 @@
 #include "ThreeDeckShip.h"
 #include "FourDeckShip.h"
 
-Ship* NavyFactory::createShip(Position pos, ShipID shipId, ShipOrientation shipOrient)
+Ship* NavyFactory::createShip(const Position& pos, const ShipID& shipId, const ShipOrientation& shipOrient)
 {
 	Ship* shipType = 0;
 	switch (shipId) {
@@ -21,5 +21,7 @@ Ship* NavyFactory::createShip(Position pos, ShipID shipId, ShipOrientation shipO
 		shipType = new FourDeckShip();
 		break;
 	}
+	if (shipType)
+		shipType->initializeShip(pos, shipOrient);
 	return shipType;
 }

@@ -1,29 +1,36 @@
-#pragma once
-#include "DrawerImpl.h"
+#ifndef DRAWER_H
+#define DRAWER_H
+
+#include "DrawerImplBase.h"
+#include "Human.h"
+#include "Computer.h"
+
+enum PlayerTurn
+{
+	PLAYER_TURN_COMPUTER = 1,
+	PLAYER_TURN_HUMAN
+};
 
 class Drawer
 {
 public:
+	Drawer(DrawerImplBase& drawerImpl, Human& human, Computer& computer);
+	void drawRectangle(int xPos, int yPos);
+	void drawVerticalLineCoords(const int xPos, const int yPos);
+	void drawHorizontalLine(const int xPos, const int yPos);
 	void drawScene();
 	void drawField();
-	void drawShips();
-	void drawHits();
+	void drawShips(const Player& player);
+	void drawHits(const Player& atackPlayer, const Player& defendPlayer, const int& xOffset);
+	void drawHitAtPosition(const Player& atackPlayer, const Player& defendPlayer, const int& xOffset, const Position& pos);
 private:	
-	static const int wight_ = 13;
-	static const int height_ = 29;
-	Drawer* drawer_;
-	char field_[wight_][height_] = {
-		"  ABCDEFGHIJ     ABCDEFGHIJ ",
-		" ############   ############",
-		"0|          |  0|          |",
-		"1|          |  1|          |",
-		"2|          |  2|          |",
-		"3|          |  3|          |",
-		"4|          |  4|          |",
-		"5|          |  5|          |",
-		"6|          |  6|          |",
-		"7|          |  7|          |",
-		"8|          |  8|          |",
-		"9|          |  9|          |",
-		" ############   ############" };
+	const int fieldWight_ = 12;
+	const int fieldHeight_ = 12;
+	const int firstFieldCoord = 3;
+	const int secondFieldCoord = 18;
+	DrawerImplBase& drawer_;
+	Human&  human_;
+	Computer& computer_;
 };
+
+#endif DRAWER_H

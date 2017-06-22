@@ -1,5 +1,8 @@
+#include <vector>
+
 #include "OneDeckShip.h"
 
-void OneDeckShip::initializeShip()
+int OneDeckShip::getSumShipDecks() const
 {
+	return sumShipDecks;
 }

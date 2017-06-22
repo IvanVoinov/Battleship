@@ -2,15 +2,14 @@
 #include "Utility.h"
 #include "Position.h"
 
-void Computer::makeMove()
+Position Computer::makeMove()
 {
-	int fieldSize = 10;
 	Position hitPosition;
-
 	do {
-		hitPosition.xPosition = Utility::randomInt(fieldSize);
-		hitPosition.yPosition = Utility::randomInt(fieldSize);
+		hitPosition.xPosition = Utility::randomInt(filedSize_);
+		hitPosition.yPosition = Utility::randomInt(filedSize_);
 	} while (isMoveAlready(hitPosition));
 	hits_.push_back(hitPosition);
+	return hitPosition;
 }
 

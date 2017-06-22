@@ -1,19 +1,26 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 
-#include "Player.h"
+#include "Human.h"
+#include "Computer.h"
 #include "Drawer.h"
+#include "DrawerImplBase.h"
 
 class Game
 {
 public:
-	void showStatistic(int time, int killed, int alive);
 	void run();
 	void pause();
+	void showStatistic(int time, int killed, int alive);
+	bool isExtraMoveAvailable() const;
+	bool isGameOver() const;
 	int gameTimer();
-	bool isExtraMoveAvailable();
-	bool isGameOver();
+	Game(DrawerImplBase& drawerImpl);
 private:
-	Player* player_;
-	Drawer* field_;
+	Human human_;
+	Computer computer_;
+	Drawer drawer_;
 	int gameTime = 0;
 };
+
+#endif GAME_H

@@ -3,48 +3,64 @@
 #include "Ship.h"
 #include "Utility.h"
 
-bool Player::isPossibleToPlace(Position pos, ShipID shipId, ShipOrientation shipOrient)
+bool Player::isPossibleToPlace(const Position& pos, const ShipID& shipId, const ShipOrientation& shipOrient) const
 {
 	int shipSize = shipId;
 	if (shipOrient == SHIP_ORIENTATION_HORIZONTAL) {
-		for (int x = pos.xPosition - 1; x < shipSize + 2; ++x) {
-			for (int y = pos.yPosition - 1; y < pos.yPosition + 3; ++y) {
-				Position current(x, y);
-				if (pos.xPosition <= x && x < pos.xPosition + shipSize && y == pos.yPosition) {
-					if (!isInsideBorder(current) || !isPositionFree(current)) {
-						return false;
-					}
-				}
-				else if (!isPositionFree(current))
-					return false;
-			}
-		}
+		return isPossibleHorizontal(pos, shipSize);
 	}
 	else if (shipOrient == SHIP_ORIENTATION_VERTICAL) {
-		for (int x = pos.xPosition - 1; x < pos.xPosition + 3; ++x) {
-			for (int y = pos.yPosition - 1; y < shipSize + 2; ++y) {
-				Position current(x, y);
-				if (pos.xPosition == x && y < pos.yPosition + shipSize && pos.yPosition <= y) {
-					if (!isInsideBorder(current) || !isPositionFree(current)) {
-						return false;
-					}
-				}
-				else if (!isPositionFree(current))
-					return false;
-				}
-			}
+		return isPossibleVertical(pos, shipSize);
+
 	}
 	return true;
 }
 
-bool Player::isInsideBorder(Position pos)
+bool Player::isPossibleVertical(const Position &pos, int shipSize) const
+{
+	for (int x = pos.xPosition - 1; x < pos.xPosition + 3; ++x) {
+		for (int y = pos.yPosition - 1; y < pos.yPosition + shipSize + 2; ++y) {
+			Position current(x, y);
+			bool isFutureShip = pos.xPosition == x && y < pos.yPosition + shipSize && pos.yPosition <= y;
+			if (!isCurrentPossibleToPlace(isFutureShip, current))
+				return false;
+		}
+	}
+	return true;
+}
+
+bool Player::isPossibleHorizontal(const Position &pos, int shipSize) const
+{
+	for (int x = pos.xPosition - 1; x < pos.xPosition + shipSize + 2; ++x) {
+		for (int y = pos.yPosition - 1; y < pos.yPosition + 3; ++y) {
+			Position current(x, y);
+			bool isFutureShip = pos.xPosition <= x && x < pos.xPosition + shipSize && y == pos.yPosition;
+			if (!isCurrentPossibleToPlace(isFutureShip, current))
+				return false;
+		}
+	}
+	return true;
+}
+
+bool Player::isCurrentPossibleToPlace(bool isFutureShip, const Position& current) const
+{
+	if (isFutureShip) {
+		if (!isInsideBorder(current) || !isPositionFree(current)) {
+			return false;
+		}
+	}
+	else if (!isPositionFree(current))
+		return false;
+}
+
+bool Player::isInsideBorder(const Position& pos) const
 {
 	if (pos.xPosition >= 0 && pos.xPosition < 10 && pos.yPosition >= 0 && pos.yPosition < 10)
 		return true;
 	return false;
 }
 
-bool Player::isPositionFree(Position pos)
+bool Player::isPositionFree(const Position& pos) const
 {
 	for (int i = 0; i < navy_.size(); ++i) {
 		if (!navy_[i]->isFree(pos))
@@ -63,27 +79,25 @@ void Player::generateShips()
 		else if (i > 2 && i <=5)
 			generateSingleShip(SHIP_ID_TWO_DECK);
 		else
-			generateSingleShip(SHIP_ID_TWO_DECK);
+			generateSingleShip(SHIP_ID_ONE_DECK);
 	}
 }
 
-void Player::generateSingleShip(ShipID shipId)
+void Player::generateSingleShip(const ShipID& shipId)
 {
-	int fieldSize = 10;
-	int orientation = 2;
+	int orientation;
 	ShipOrientation shipOrient;
 	Position shipPos;
 	do  {
-		shipPos.xPosition = Utility::randomInt(fieldSize);
-		shipPos.yPosition = Utility::randomInt(fieldSize);
-		orientation = Utility::randomInt(orientation);
+		shipPos.xPosition = Utility::randomInt(fieldSize_);
+		shipPos.yPosition = Utility::randomInt(fieldSize_);
+		orientation = Utility::randomInt(shipOrient_);
 		shipOrient = static_cast<ShipOrientation>(orientation);
-	} while (isPossibleToPlace(shipPos, shipId, shipOrient));
-
+	} while (!isPossibleToPlace(shipPos, shipId, shipOrient));
 	navy_.push_back(NavyFactory::createShip(shipPos, shipId, shipOrient));
 }
 
-bool Player::isMoveAlready(Position pos)
+bool Player::isMoveAlready(const Position& pos) const
 {
 		for (int i = 0; i < hits_.size(); ++i) {
 			if (pos == hits_[i])
@@ -92,7 +106,7 @@ bool Player::isMoveAlready(Position pos)
 		return false;
 }
 
-bool Player::isHitShip(Position pos)
+bool Player::isHitShip(const Position& pos) const
 {
 	for (int i = 0; i < navy_.size(); ++i) {
 		if (navy_[i]->isFree(pos))
@@ -101,7 +115,27 @@ bool Player::isHitShip(Position pos)
 	return true;
 }
 
+bool Player::areAllShipsKilled() const
+{
+	int killedCounter = 0;
+	for (int i = 0; i < navy_.size(); ++i) {
+		if (navy_[i]->isKilled())
+			killedCounter++;
+	}
+
+	return killedCounter == navy_.size();
+}
+
+void Player::damageShip(const Position & pos)
+{
+	for (int i = 0; i < navy_.size(); ++i) {
+		navy_[i]->damage(pos);
+	}
+}
+
 Player::~Player()
 {
+	for (int i = 0; i < navy_.size(); ++i)
+		delete navy_[i];
 }
 

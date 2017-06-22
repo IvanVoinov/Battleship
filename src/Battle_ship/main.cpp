@@ -1,15 +1,14 @@
 #include <time.h>
 #include <iostream>
 #include <cstdlib>
-#include "Position.h"
-#include "Human.h"
-
+#include "ConsoleDrawerImpl.h"
+#include "Game.h"
 
 int main()
 {
-	Human human;
-	human.makeMove();
 	srand(time(NULL));
-
-	system("pause");
+	ConsoleDrawerImpl drw;
+	Game game(drw);
+	game.run();
+	return 0;
 }

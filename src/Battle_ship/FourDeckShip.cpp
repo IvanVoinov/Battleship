@@ -1,5 +1,6 @@
 #include "FourDeckShip.h"
 
-void FourDeckShip::initializeShip()
+int FourDeckShip::getSumShipDecks() const
 {
+	return sumShipDecks;
 }

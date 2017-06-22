@@ -116,7 +116,8 @@
   <ItemGroup>
     <ClCompile Include="Computer.cpp" />
     <ClCompile Include="ConsoleDrawerImpl.cpp" />
-    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="DrawerImplBase.cpp" />
+    <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="FourDeckShip.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Human.cpp" />
@@ -133,7 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Computer.h" />
     <ClInclude Include="ConsoleDrawerImpl.h" />
-    <ClInclude Include="DrawerImpl.h" />
+    <ClInclude Include="DrawerImplBase.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="FourDeckShip.h" />
     <ClInclude Include="Game.h" />

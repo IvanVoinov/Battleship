@@ -1,9 +1,14 @@
-#pragma once
+#ifndef THREE_DECK_SHIP_H
+#define THREE_DECK_SHIP_H
 
 #include "Ship.h"
 
 class TwoDeckShip : public Ship
 {
 public:
-	virtual void initializeShip();
+	virtual int getSumShipDecks() const;
+private:
+	const int sumShipDecks = 2;
 };
+
+#endif THREE_DECK_SHIP_H
