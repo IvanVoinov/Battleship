@@ -1,5 +1,5 @@
-#ifndef THREE_DECK_SHIP_H
-#define THREE_DECK_SHIP_H
+#ifndef TWO_DECK_SHIP_H
+#define TWO_DECK_SHIP_H
 
 #include "Ship.h"
 
@@ -8,7 +8,7 @@ class TwoDeckShip : public Ship
 public:
 	virtual int getSumShipDecks() const;
 private:
-	const int sumShipDecks = 2;
+	int sumShipDecks_ = 2;
 };
 
-#endif THREE_DECK_SHIP_H
+#endif TWO_DECK_SHIP_H

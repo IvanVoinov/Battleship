@@ -1,6 +1,8 @@
 #include <windows.h>
 #include "ConsoleDrawerImpl.h"
 
+using namespace Constants;
+
 ConsoleDrawerImpl::ConsoleDrawerImpl() :
 	handleOut_(GetStdHandle(STD_OUTPUT_HANDLE))
 {

@@ -9,18 +9,18 @@
 class Game
 {
 public:
+	Game(DrawerImplBase& drawerImpl);
 	void run();
 	void pause();
-	void showStatistic(int time, int killed, int alive);
+	void showStatistic(const int& time, const int& killed, const int& alive);
 	bool isExtraMoveAvailable() const;
 	bool isGameOver() const;
 	int gameTimer();
-	Game(DrawerImplBase& drawerImpl);
 private:
 	Human human_;
 	Computer computer_;
 	Drawer drawer_;
-	int gameTime = 0;
+	int gameTime_ = 0;
 };
 
 #endif GAME_H

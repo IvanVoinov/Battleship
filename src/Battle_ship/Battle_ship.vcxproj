@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Computer.h" />
     <ClInclude Include="ConsoleDrawerImpl.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="DrawerImplBase.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="FourDeckShip.h" />

@@ -2,5 +2,5 @@
 
 int ThreeDeckShip::getSumShipDecks() const
 {
-	return sumShipDecks;
+	return sumShipDecks_;
 }

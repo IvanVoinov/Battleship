@@ -7,7 +7,7 @@ Game::Game(DrawerImplBase& drawerImpl)
 
 }
 
-void Game::showStatistic(int time, int killed, int alive)
+void Game::showStatistic(const int& time, const int& killed, const int& alive)
 {
 }
 

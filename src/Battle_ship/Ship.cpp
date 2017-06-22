@@ -1,4 +1,5 @@
 #include "Ship.h"
+using namespace Constants;
 
 void Ship::initializeShip(const Position & pos, const ShipOrientation & shipOrient)
 {

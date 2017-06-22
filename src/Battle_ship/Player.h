@@ -4,19 +4,20 @@
 #include <vector>
 
 #include "NavyFactory.h"
+#include "Constants.h"
 
 class Player
 {
 public:
 	virtual Position makeMove() = 0;
-	virtual void generateShips();
-	virtual void generateSingleShip(const ShipID& shipId);
-	virtual bool isPossibleToPlace(const Position& pos, const ShipID& shipId, const ShipOrientation& shipOrient) const;
-	virtual bool isInsideBorder(const Position& pos) const;
-	virtual bool isPositionFree(const Position& pos) const;
-	virtual bool isMoveAlready(const Position& pos) const;
-	virtual bool isHitShip(const Position& pos) const;
-	virtual bool areAllShipsKilled() const;
+	void generateShips();
+	void generateSingleShip(const Constants::ShipID& shipId);
+	bool isPossibleToPlace(const Position& pos, const Constants::ShipID& shipId, const Constants::ShipOrientation& shipOrient) const;
+	bool isInsideBorder(const Position& pos) const;
+	bool isPositionFree(const Position& pos) const;
+	bool isMoveAlready(const Position& pos) const;
+	bool isHitShip(const Position& pos) const;
+	bool areAllShipsKilled() const;
 	void damageShip(const Position& pos);
 	virtual ~Player();
 protected:
@@ -26,8 +27,6 @@ private:
 	bool isPossibleVertical(const Position &pos, int shipSize) const;
 	bool isPossibleHorizontal(const Position &pos, int shipSize) const;
 	bool isCurrentPossibleToPlace(bool isFutureShip, const Position& current) const;
-	const int fieldSize_ = 10;
-	const int shipOrient_ = 2;
 };
 
 #endif PLAYER_H

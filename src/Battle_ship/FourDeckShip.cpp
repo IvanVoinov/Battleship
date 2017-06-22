@@ -2,5 +2,5 @@
 
 int FourDeckShip::getSumShipDecks() const
 {
-	return sumShipDecks;
+	return sumShipDecks_;
 }

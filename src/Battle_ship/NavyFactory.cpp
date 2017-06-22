@@ -3,6 +3,9 @@
 #include "TwoDeckShip.h"
 #include "ThreeDeckShip.h"
 #include "FourDeckShip.h"
+#include "Constants.h"
+
+using namespace Constants;
 
 Ship* NavyFactory::createShip(const Position& pos, const ShipID& shipId, const ShipOrientation& shipOrient)
 {

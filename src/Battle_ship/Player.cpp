@@ -2,6 +2,9 @@
 #include "Position.h"
 #include "Ship.h"
 #include "Utility.h"
+#include "Constants.h"
+
+using namespace Constants;
 
 bool Player::isPossibleToPlace(const Position& pos, const ShipID& shipId, const ShipOrientation& shipOrient) const
 {
@@ -11,7 +14,6 @@ bool Player::isPossibleToPlace(const Position& pos, const ShipID& shipId, const 
 	}
 	else if (shipOrient == SHIP_ORIENTATION_VERTICAL) {
 		return isPossibleVertical(pos, shipSize);
-
 	}
 	return true;
 }
@@ -89,9 +91,9 @@ void Player::generateSingleShip(const ShipID& shipId)
 	ShipOrientation shipOrient;
 	Position shipPos;
 	do  {
-		shipPos.xPosition = Utility::randomInt(fieldSize_);
-		shipPos.yPosition = Utility::randomInt(fieldSize_);
-		orientation = Utility::randomInt(shipOrient_);
+		shipPos.xPosition = Utility::randomInt(FIELD_SIZE);
+		shipPos.yPosition = Utility::randomInt(FIELD_SIZE);
+		orientation = Utility::randomInt(SHIP_ORIENT);
 		shipOrient = static_cast<ShipOrientation>(orientation);
 	} while (!isPossibleToPlace(shipPos, shipId, shipOrient));
 	navy_.push_back(NavyFactory::createShip(shipPos, shipId, shipOrient));
